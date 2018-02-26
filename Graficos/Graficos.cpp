@@ -26,6 +26,10 @@ vector<Vertice> cuadrado;
 GLuint vertexArrayCuadradoID;
 GLuint bufferCuadradoID;
 
+vector<Vertice> circulo;
+GLuint vertexArrayCirculoID;
+GLuint bufferCirculoID;
+
 Shader *shader;
 
 void actualizar()
@@ -86,6 +90,15 @@ void inicializarCuadrado()
 	cuadrado.push_back(v4);
 }
 
+void inicializarCirculo()
+{
+	//Inicializar circulo
+	for (float i = 0; i < 360; i++) {
+		Vertice v1 =
+		{ vec3(0.4 * cos(i) * 1, 0.8 * sin(i) * 1, 0), vec4(0.0f, 0.0f, 1.0f, 1.0f) };
+	}
+}
+
 int main()
 {
 	//Declaración de Ventana
@@ -138,6 +151,7 @@ int main()
 
 	inicializarTriangulo();
 	inicializarCuadrado();
+	inicializarCirculo();
 
 	//Crear instancia del shader
 	const char * rutaVertex = "vShaderSimple.shader";
@@ -184,6 +198,22 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, bufferCuadradoID);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertice) * cuadrado.size(), 
 		cuadrado.data(), GL_STATIC_DRAW);
+	glEnableVertexAttribArray(posicionID);
+	glEnableVertexAttribArray(colorID);
+	glVertexAttribPointer(posicionID, 3, GL_FLOAT,
+		GL_FALSE, sizeof(Vertice), 0);
+	glVertexAttribPointer(colorID, 4, GL_FLOAT,
+		GL_FALSE, sizeof(Vertice), (void*) sizeof(vec3));
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	//Instrucciones par el circulo
+	glGenVertexArrays(1, &vertexArrayCirculoID);
+	glBindVertexArray(vertexArrayCirculoID);
+	glGenBuffers(1, &bufferCirculoID);
+	glBindBuffer(GL_ARRAY_BUFFER, bufferCirculoID);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertice) * circulo.size(),
+		circulo.data(), GL_STATIC_DRAW);
 	glEnableVertexAttribArray(posicionID);
 	glEnableVertexAttribArray(colorID);
 	glVertexAttribPointer(posicionID, 3, GL_FLOAT,
