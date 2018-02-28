@@ -98,7 +98,7 @@ void inicializarCirculo()
 	for (int i = 0; i < 360; i++) {
 		Vertice v1 =
 		{ vec3(0.4 * cos(i) *1, 0.5 * sin(i) *1, 0.0f), 
-			vec4(0.0f, 0.0f, 0.0f, 1.0f) };
+			vec4(0.0f, 0.0f, 1.0f, 1.0f) };
 		circulo.push_back(v1);
 	}
 }
