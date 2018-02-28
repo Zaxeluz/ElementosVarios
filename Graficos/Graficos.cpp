@@ -12,6 +12,8 @@
 
 #include "Vertice.h"
 #include "Shader.h"
+
+#include <math.h>
 using namespace std;
 
 GLfloat red, green, blue;
@@ -44,12 +46,12 @@ void dibujar()
 	
 	//Especificar el vertex array
 	glBindVertexArray(vertexArrayID);
+	glDrawArrays(GL_TRIANGLES, 0, triangulo.size());
 	glBindVertexArray(vertexArrayCuadradoID); //agregado
-	
-	//Dibujar
-	//glDrawArrays(GL_TRIANGLES, 0, triangulo.size());
 	glDrawArrays(GL_POLYGON, 0, cuadrado.size()); //agregado
-	
+	glBindVertexArray(vertexArrayCirculoID); //agregado
+	glDrawArrays(GL_POLYGON, 0, circulo.size()); //agregado	
+
 	//soltar el vertex array
 	glBindVertexArray(0);
 	
@@ -93,9 +95,11 @@ void inicializarCuadrado()
 void inicializarCirculo()
 {
 	//Inicializar circulo
-	for (float i = 0; i < 360; i++) {
+	for (int i = 0; i < 360; i++) {
 		Vertice v1 =
-		{ vec3(0.4 * cos(i) * 1, 0.8 * sin(i) * 1, 0), vec4(0.0f, 0.0f, 1.0f, 1.0f) };
+		{ vec3(0.4 * cos(i) *1, 0.5 * sin(i) *1, 0.0f), 
+			vec4(0.0f, 0.0f, 0.0f, 1.0f) };
+		circulo.push_back(v1);
 	}
 }
 
